@@ -1,0 +1,157 @@
+<div class="bg">
+  <div class="container pt-4 pb-4">
+
+    <mat-card class="mb-4">
+      <mat-card-title-group>
+        <mat-card-title align="end">SIGNUP WITH US</mat-card-title>
+      </mat-card-title-group>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-content>
+        <mat-vertical-stepper [linear]="!'true'" #stepper>
+          <!-- Name -->
+          <mat-step [stepControl]="formName">
+            <form [formGroup]="formName">
+              <ng-template matStepLabel>Fill out your Name</ng-template>
+              <mat-form-field>
+                <input matInput placeholder="First Name" formControlName="Ctrl_1" />
+              </mat-form-field>
+              <br />
+              <mat-form-field>
+                <input matInput placeholder="Last Name" formControlName="Ctrl_2" />
+              </mat-form-field>
+              <div>
+                <button mat-button matStepperNext>Next</button>
+              </div>
+            </form>
+          </mat-step>
+          <!-- email -->
+          <mat-step [stepControl]="formEmail">
+            <form [formGroup]="formEmail">
+              <ng-template matStepLabel>Fill out your Email Address</ng-template>
+              <mat-form-field>
+                <input matInput type="email" placeholder="Email" formControlName="Ctrl_1" />
+              </mat-form-field>
+              <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+              </div>
+            </form>
+          </mat-step>
+          <!-- password -->
+          <mat-step [stepControl]="formPassword">
+            <form [formGroup]="formPassword">
+              <ng-template matStepLabel>Fill out your Password</ng-template>
+              <mat-form-field>
+                <input matInput type="Password" placeholder="Password" formControlName="Ctrl_1" />
+              </mat-form-field>
+              <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+              </div>
+            </form>
+          </mat-step>
+          <!-- NIC -->
+          <mat-step [stepControl]="formNIC">
+            <form [formGroup]="formNIC">
+              <ng-template matStepLabel>Fill out your NIC</ng-template>
+              <mat-form-field>
+                <input matInput placeholder="NIC card number" formControlName="Ctrl_1" />
+              </mat-form-field>
+              <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+              </div>
+            </form>
+          </mat-step>
+          <!-- user category -->
+          <mat-step [stepControl]="formUserCat">
+            <form [formGroup]="formUserCat">
+              <ng-template matStepLabel>Fill out user Category</ng-template>
+              <mat-form-field>
+                <mat-label>select category</mat-label>
+                <mat-select class="select" formControlName="Ctrl_1" disableOptionCentering>
+                  <mat-option *ngFor="let field of fields" [value]="field.value">
+                    {{ field.viewValue }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+              </div>
+            </form>
+          </mat-step>
+          <div [ngSwitch]="userCat">
+            <!-- police station -->
+            <mat-step [stepControl]="formPoliceStation" *ngSwitchCase="'cop'">
+              <form [formGroup]="formPoliceStation">
+                <ng-template matStepLabel>Fill out Police station</ng-template>
+                <mat-form-field>
+                  <mat-label>select station</mat-label>
+                  <mat-select class="select" formControlName="Ctrl_1" disableOptionCentering>
+                    <mat-option *ngFor="let policeStation of policeStationList" [value]="policeStation.value">
+                      {{ policeStation.viewValue }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <div>
+                  <button mat-button matStepperPrevious>Back</button>
+                  <button mat-button matStepperNext>Next</button>
+                </div>
+              </form>
+            </mat-step>
+            <!-- police officer ID number -->
+            <mat-step [stepControl]="formOfficerID" *ngSwitchCase="'cop'">
+              <form [formGroup]="formOfficerID">
+                <ng-template matStepLabel>Fill out your officer ID number</ng-template>
+                <mat-form-field>
+                  <input matInput placeholder="officer ID number" formControlName="Ctrl_1" />
+                </mat-form-field>
+                <div>
+                  <button mat-button matStepperPrevious>Back</button>
+                  <button mat-button matStepperNext>Next</button>
+                </div>
+              </form>
+            </mat-step>
+            <!-- post office  -->
+            <mat-step [stepControl]="formPostOffice" *ngSwitchCase="'post'">
+              <form [formGroup]="formPostOffice">
+                <ng-template matStepLabel>Fill out Post Office</ng-template>
+                <mat-form-field>
+                  <mat-label>select office</mat-label>
+                  <mat-select class="select" formControlName="Ctrl_1" disableOptionCentering>
+                    <mat-option *ngFor="let postOffice of postOfficeList" [value]="postOffice.value">
+                      {{ postOffice.viewValue }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <div>
+                  <button mat-button matStepperPrevious>Back</button>
+                  <button mat-button matStepperNext>Next</button>
+                </div>
+              </form>
+            </mat-step>
+            <div *ngSwitchDefault></div>
+          </div>
+          <!-- done -->
+          <mat-step>
+            <ng-template matStepLabel>Done</ng-template>
+            <div class="m-1">
+              You are now done.
+            </div>
+            <div class="m-auto d-flex float-right">
+              <button mat-raised-button (click)="stepper.reset()" class="m-1">
+                Reset
+              </button>
+              <button mat-raised-button (click)="submit()" class="m-1" [disabled]="false">
+                submit
+              </button>
+            </div>
+          </mat-step>
+        </mat-vertical-stepper>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
