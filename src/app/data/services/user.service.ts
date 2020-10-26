@@ -43,7 +43,7 @@ export class UserService {
       this.matSnackBar.open('login Success', 'OK', { duration: 1000}).afterDismissed().subscribe(() => {
         this.isAuthenticated = true;
         this.authStatusListener.next(true);
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['dashboard'], { skipLocationChange: true });
       });
     });
   }
@@ -55,7 +55,7 @@ export class UserService {
   public logout() {
     this.isAuthenticated = false;
     this.authStatusListener.next(false);
-    this.router.navigate(['home']);
+    this.router.navigate(['home'], { skipLocationChange: true });
   }
 
 }

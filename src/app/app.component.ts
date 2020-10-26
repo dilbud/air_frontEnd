@@ -22,7 +22,7 @@ export class AppComponent implements OnInit , OnDestroy  {
     this.subscription = this.userService.getAuthStatusListener().subscribe((isAuth: boolean) => {
       this.isAuth = isAuth;
       if (!this.isAuth) {
-        this.router.navigate(['home']);
+        this.router.navigate(['home'], { skipLocationChange: true });
       }
     });
   }

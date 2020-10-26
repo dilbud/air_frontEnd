@@ -56,7 +56,7 @@ export class NavbarComponent implements OnInit {
 
   // navigate to home
   public navHome() {
-    this.router.navigate(['home']);
+    this.router.navigate(['home'], { skipLocationChange: true });
   }
   // logout user
   public logout() {
@@ -64,11 +64,11 @@ export class NavbarComponent implements OnInit {
   }
   // go to dashboard
     public dashboard() {
-      this.router.navigate(['dashboard']);
+      this.router.navigate(['dashboard'], { skipLocationChange: true });
     }
   // go to profile
   public profile() {
-    this.router.navigate(['profile']);
+    this.router.navigate(['profile'], { skipLocationChange: true });
   }
 
 }
