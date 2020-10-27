@@ -2,8 +2,8 @@
   <form  class="form" [formGroup]="search">
     <mat-form-field class="mt-2" appearance="fill">
       <mat-label>Search</mat-label>
-      <input matInput #f (keyup)="applyFilter($event)" placeholder="Ex. Mia"  formControlName="textCtrl" />
-        <button mat-icon-button class="but-1"  matSuffix (click)="getResult();clear=false">
+      <input matInput placeholder="Ex. Mia"  formControlName="textCtrl" />
+        <button mat-icon-button class="but-1"  matSuffix (click)="searchText();clear=false">
           <mat-icon class="input">search</mat-icon>
         </button>
         <button mat-icon-button class="but-2"  matSuffix (click)="resetText()">

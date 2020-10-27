@@ -37,7 +37,7 @@ interface SearchData {
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
 
-  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
   search: FormGroup;
   totalLength = 0;
@@ -45,7 +45,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   previousSearch: SearchData;
   clear = true;
 
-  results: InventoryData [] = [];
+  results: InventoryData[] = [];
 
   brands: Brand[] = [
     { value: 'any', viewValue: 'Any' },
@@ -69,26 +69,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     private formBuilder: FormBuilder,
     private matSnackBar: MatSnackBar,
     private inventoryService: InventoryService,
-  ) {}
+  ) { }
 
-  ngAfterViewInit() {
-    this.paginator.page.subscribe((v: PageData) => {
-      this.pageData = v;
-      this.getResult();
-    });
-
-
-    this.previousSearch  = this.search.value;
-
-    this.search.valueChanges.pipe(debounceTime(100)).subscribe((val: SearchData) => {
-
-      if (_.isEqual(this.previousSearch, val)) {
-      } else {
-        this.getResult();
-        this.previousSearch = val;
-      }
-    });
-  }
   ngOnInit() {
 
     this.pageData = {
@@ -107,133 +89,93 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.getResult();
   }
 
+  ngAfterViewInit() {
+    this.paginator.page.subscribe((v: PageData) => {
+      this.pageData = v;
+      this.getResult();
+    });
+
+    this.previousSearch = this.search.value;
+
+    this.search.valueChanges.pipe(debounceTime(100)).subscribe((val: SearchData) => {
+        this.getResult();
+        this.previousSearch = val;
+    });
+
+    this.search.get('brandCtrl').valueChanges.subscribe((val: string[]) => {
+      if (_.isEqual(this.previousSearch.brandCtrl, val) === false) {
+        if (val.length === 0 || val.length === this.brands.length) {
+          this.search.get('brandCtrl').setValue(['any']);
+        }
+        if (val[0] !== 'any' && val.length === 4) {
+          this.search.get('brandCtrl').setValue(['any']);
+        }
+        if (val[0] === 'any' && val.length >= 2 && val.length <= 4) {
+          this.search.get('brandCtrl').setValue(val.slice(1));
+        }
+        if (this.previousSearch.brandCtrl[0] !== 'any' && val[0] === 'any') {
+          this.previousSearch.brandCtrl = ['any'];
+          this.search.get('brandCtrl').setValue(['any']);
+        }
+      }
+    });
+
+    this.search.get('typeCtrl').valueChanges.subscribe((val: string[]) => {
+      if (_.isEqual(this.previousSearch.brandCtrl, val) === false) {
+        if (val.length === 0 || val.length === this.brands.length) {
+          this.search.get('typeCtrl').setValue(['any']);
+        }
+        if (val[0] !== 'any' && val.length === 4) {
+          this.search.get('typeCtrl').setValue(['any']);
+        }
+        if (val[0] === 'any' && val.length >= 2 && val.length <= 4) {
+          this.search.get('typeCtrl').setValue(val.slice(1));
+        }
+        if (this.previousSearch.typeCtrl[0] !== 'any' && val[0] === 'any') {
+          this.previousSearch.typeCtrl = ['any'];
+          this.search.get('typeCtrl').setValue(['any']);
+        }
+      }
+    });
+  }
+
   deleteInventory(item: InventoryData) {
     const quary: QuaryData = {
       ...this.pageData,
       ...this.search.value
     };
-    this.inventoryService.deleteInventory(item.id, quary).pipe().subscribe((res: any) => {
-      this.totalLength = res.page.length;
-      const val = res.data as InventoryData[];
-      this.results = val;
+    this.inventoryService.deleteInventory(item.id, quary).subscribe((res: any) => {
     }, (err: any) => {
-      this.matSnackBar.open('Not Deleted', 'OK', { duration: 1200});
+      this.matSnackBar.open('Not Deleted', 'OK', { duration: 1200 });
       this.getResult();
     }, () => {
-      this.matSnackBar.open('Item Delete Success', 'OK', { duration: 1200});
+      this.matSnackBar.open('Item Delete Success', 'OK', { duration: 1200 });
+      this.getResult();
     });
   }
 
-  getResult() {
+  getResult(special = false) {
     const quary: QuaryData = {
       ...this.pageData,
       ...this.search.value
     };
-    this.inventoryService.getQuaryResult(quary).pipe(debounceTime(500)).subscribe((res: SuccessMsgData) => {
+    this.inventoryService.getQuaryResult(quary, special).pipe(debounceTime(500)).subscribe((res: SuccessMsgData) => {
       this.totalLength = res.page.length;
       const val = res.data as InventoryData[];
       this.results = val;
     }, (err: any) => {
       this.results = [];
-      this.matSnackBar.open('No Found Result', 'OK', { duration: 1200});
+      this.matSnackBar.open('No Found Result', 'OK', { duration: 1200 });
       this.totalLength = 0;
     }, () => {
     });
   }
 
   resetText() {
-    this.search.setValue({...this.search.value, textCtrl: null}, {onlySelf: true, emitEvent: true});
+    this.search.setValue({ ...this.search.value, textCtrl: null }, { onlySelf: true, emitEvent: true });
   }
-  applyFilter(event: Event) {
+
+  searchText() {
     this.getResult();
   }
 }
-
-
-      // if (
-      //   this.val.brandCtrl.find((v: string) => v === 'any') === 'any' &&
-      //   this.val.brandCtrl.length > 1
-      // ) {
-      //   this.search.setValue({
-      //     ...this.val,
-      //     brandCtrl: this.val.brandCtrl.filter((v: string) => v !== 'any'),
-      //   });
-      // }
-      // if (
-      //   this.val.typeCtrl.find((v: string) => v === 'any') === 'any' &&
-      //   this.val.typeCtrl.length > 1
-      // ) {
-      //   this.search.setValue({
-      //     ...this.val,
-      //     brandCtrl: this.val.typeCtrl.filter((v: string) => v !== 'any'),
-      //   });
-      // }
-
-        // this.current = this.search.value;
-
-    // this.search.valueChanges.pipe(debounceTime(100)).subscribe((val) => {
-    //   if (_.isEqual(val, this.current)) {
-    //     console.log('*********************');
-    //   } else {
-    //     // for brand
-    //     if ( !this.current.brandCtrl.find((v: string) => v === 'any') ) {
-    //         this.search.setValue({
-    //           ...val,
-    //           brandCtrl: ['any'],
-    //         });
-
-    //     }
-    //     if ( this.brands.length === val.brandCtrl.length) {
-    //       this.search.setValue({
-    //         ...val,
-    //         brandCtrl: ['any'],
-    //       });
-    //     }
-    //     // for type
-    //     if ( !this.current.typeCtrl.find((v: string) => v === 'any')) {
-    //       this.search.setValue({
-    //         ...val,
-    //         typeCtrl: ['any'],
-    //       });
-
-    //     }
-    //     if ( this.types.length === val.typeCtrl.length) {
-    //       this.search.setValue({
-    //         ...val,
-    //         typeCtrl: ['any'],
-    //       });
-    //     }
-    //   }
-    //   this.current = val;
-    // });
-            // // for brand ctrl
-        // if (val.brandCtrl.findIndex((v) => v === 'any' ) === -1) {
-        //     if (val.brandCtrl.length >= 4 || val.brandCtrl.length === 0) {
-        //       this.search.setValue({...this.search.value, brandCtrl: ['any']},  {onlySelf: true, emitEvent: false});
-        //     }
-        // } else {
-        //     if (this.previousSearch.brandCtrl.findIndex((v) => v === 'any' ) === -1) {
-        //     } else {
-        //       if (val.brandCtrl.length < 4) {
-        //         this.search.setValue(
-        //           {...this.search.value, brandCtrl: val.brandCtrl.filter((vv) =>  vv !== 'any')},
-        //           {onlySelf: true, emitEvent: false});
-        //       }
-        //     }
-        // }
-        // // for type ctrl
-        // if (val.typeCtrl.findIndex((v) => v === 'any' ) === -1) {
-        //   if (val.typeCtrl.length >= 4 || val.typeCtrl.length === 0) {
-        //     this.search.setValue({...this.search.value, typeCtrl: ['any']}, {onlySelf: true, emitEvent: false});
-        //   }
-
-        // } else {
-        //     if (this.previousSearch.typeCtrl.findIndex((v) => v === 'any' ) === -1) {
-        //     } else {
-        //       if (val.typeCtrl.length < 4) {
-        //         this.search.setValue(
-        //           {...this.search.value, typeCtrl: val.typeCtrl.filter((vv) =>  vv !== 'any')},
-        //           {onlySelf: true, emitEvent: false});
-        //       }
-        //     }
-        // }

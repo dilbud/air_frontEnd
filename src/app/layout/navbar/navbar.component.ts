@@ -40,6 +40,7 @@ export class NavbarComponent implements OnInit {
     const dialogRef = this.dialog.open(LoginComponent, {
       width: 'auto',
       height: 'auto',
+      autoFocus: false,
       data: { email: this.email, password: this.password }
     });
 

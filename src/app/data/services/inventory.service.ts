@@ -10,34 +10,38 @@ import { environment } from '@env';
 export class InventoryService {
   private apiUrl = environment.baseUrl + 'dashboard';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  private quary(quary: QuaryData): string {
+  private quary(quary: QuaryData, special = false): string {
 
     const brandCtrl =
       quary.brandCtrl.length !== 0
         ? quary.brandCtrl.reduce((pr, cv, i, arr) => {
-            if (arr.length === 1) {
-              return pr + cv;
-            } else {
-              return pr + ',' + cv;
-            }
-          })
+          if (arr.length === 1) {
+            return pr + cv;
+          } else {
+            return pr + ',' + cv;
+          }
+        })
         : 'any';
 
     const typeCtrl =
       quary.typeCtrl.length !== 0
         ? quary.typeCtrl.reduce((pr, cv, i, arr) => {
-            if (arr.length === 1) {
-              return pr + cv;
-            } else {
-              return pr + ',' + cv;
-            }
-          })
+          if (arr.length === 1) {
+            return pr + cv;
+          } else {
+            return pr + ',' + cv;
+          }
+        })
         : 'any';
 
-    const textCtrl = quary.textCtrl
-      ? quary.textCtrl
+
+    let textCtrl: string;
+
+    if (!special) {
+      textCtrl = quary.textCtrl
+        ? quary.textCtrl
           .trim()
           .toLowerCase()
           .split(' ')
@@ -52,7 +56,12 @@ export class InventoryService {
               return pr + ',' + cv;
             }
           })
-      : 'any';
+        : 'any';
+    } else {
+      textCtrl = quary.textCtrl
+        ? quary.textCtrl.trim().toLowerCase()
+        : 'any';
+    }
 
     const search1 = `?brandCtrl=${brandCtrl}`;
     const search2 = `&typeCtrl=${typeCtrl}`;
@@ -72,14 +81,13 @@ export class InventoryService {
 
   public deleteInventory(id: number, quary: QuaryData) {
 
-    const param = this.quary(quary);
     // console.log(this.apiUrl + `/inventories/${id}${param}`);
-    return this.http.delete(this.apiUrl + `/inventories/${id}${param}`);
+    return this.http.delete(this.apiUrl + `/inventories/${id}`);
   }
 
-  public getQuaryResult(quary: QuaryData): Observable<any> {
+  public getQuaryResult(quary: QuaryData, special = false): Observable<any> {
 
-    const param = this.quary(quary);
+    const param = this.quary(quary, special);
     // console.log(this.apiUrl + `/inventories${param}`);
     return this.http.get(this.apiUrl + `/inventories${param}`);
   }

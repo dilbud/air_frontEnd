@@ -7,13 +7,14 @@ import { environment } from '@env';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { UserData } from '../models/userData';
 import { SignupData } from '../models/signupData';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   private apiUrl = environment.baseUrl + 'login';
-  private authStatusListener = new Subject<boolean>();
+  private authStatusListener = new BehaviorSubject<boolean>(false);
   private isAuthenticated: boolean;
   private user: UserData;
 
