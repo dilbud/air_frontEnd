@@ -1,0 +1,118 @@
+table {
+  width: 100%;
+}
+
+tr.detail-row {
+  height: 0;
+}
+
+tr.element-row {
+  cursor: pointer !important;
+}
+
+tr.element-row:not(.expanded-row):hover {
+  background: rgb(167, 167, 167);
+}
+
+tr.element-row:not(.expanded-row):active {
+  background: #efefef;
+}
+
+.element-row td {
+  border-bottom-width: 0;
+}
+
+.element-detail {
+  overflow: hidden;
+  display: flex;
+  background-color: rgb(235, 234, 255);
+}
+
+.element-diagram {
+  min-width: 80px;
+  border: 2px solid black;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: 104px;
+}
+
+.element-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.element-description-attribution {
+  opacity: 0.5;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td,
+th {
+  padding-right: 10px !important;
+}
+
+.no {
+  width: 30px;
+}
+.brand {
+  width: 85px;
+}
+.type {
+  width: 85px;
+
+}
+.des {
+  width: auto;
+
+}
+.price {
+  width: auto;
+}
+.exp {
+  width: 76px;
+}
+
+.bg {
+  width: calc(100%);
+  height: 100%;
+  background-color: rgb(220, 235, 255);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: rgb(255, 255, 255);
+}
+
+.expan-contaner {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+.expan-section {
+  width: 75%;
+}
+
+.expan-action-edit {
+  margin-left: 10px;
+  float: right;
+}
+
+.expan-action-delete {
+  margin-left: 10px;
+  float: right;
+}

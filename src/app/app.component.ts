@@ -31,6 +31,4 @@ export class AppComponent implements OnInit , OnDestroy  {
     this.subscription.unsubscribe();
   }
 
-
-
 }

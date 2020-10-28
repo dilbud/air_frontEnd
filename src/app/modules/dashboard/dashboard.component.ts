@@ -90,6 +90,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+
     this.paginator.page.subscribe((v: PageData) => {
       this.pageData = v;
       this.getResult();
@@ -98,8 +99,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.previousSearch = this.search.value;
 
     this.search.valueChanges.pipe(debounceTime(100)).subscribe((val: SearchData) => {
-        this.getResult();
-        this.previousSearch = val;
+      this.getResult();
+      this.previousSearch = val;
     });
 
     this.search.get('brandCtrl').valueChanges.subscribe((val: string[]) => {
@@ -154,6 +155,21 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     });
   }
 
+  updateInventory(item: InventoryData) {
+    // const quary: QuaryData = {
+    //   ...this.pageData,
+    //   ...this.search.value
+    // };
+    // this.inventoryService.deleteInventory(item.id, quary).subscribe((res: any) => {
+    // }, (err: any) => {
+    //   this.matSnackBar.open('Not Deleted', 'OK', { duration: 1200 });
+    //   this.getResult();
+    // }, () => {
+    //   this.matSnackBar.open('Item Delete Success', 'OK', { duration: 1200 });
+    //   this.getResult();
+    // });
+  }
+
   getResult(special = false) {
     const quary: QuaryData = {
       ...this.pageData,
@@ -163,6 +179,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       this.totalLength = res.page.length;
       const val = res.data as InventoryData[];
       this.results = val;
+      console.log(this.results);
+
     }, (err: any) => {
       this.results = [];
       this.matSnackBar.open('No Found Result', 'OK', { duration: 1200 });

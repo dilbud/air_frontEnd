@@ -9,8 +9,8 @@ import { AuthGuardService } from './data/services/auth-guard.service';
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
-    // component: DashboardComponent,
+    // component: HomeComponent,
+    component: DashboardComponent,
   },
   {
     path: 'dashboard',

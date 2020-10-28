@@ -1,5 +1,5 @@
 <div class="dashboard">
-  <form  class="form" [formGroup]="search">
+  <form  class="form mat-elevation-z8" [formGroup]="search">
     <mat-form-field class="mt-2" appearance="fill">
       <mat-label>Search</mat-label>
       <input matInput placeholder="Ex. Mia"  formControlName="textCtrl" />
@@ -27,10 +27,49 @@
       </mat-select>
     </mat-form-field>
   </form>
-  <mat-paginator class="pagination" [length]="totalLength"
+
+  <div class="not-found" *ngIf="results.length === 0" >No Result Found</div>
+  <!-- <app-card class="body"
+  (deleteInventoryEvent)="deleteInventory($event)"
+  (updateInventoryEvent)="updateInventory($event)"
+  [items]="results" *ngIf="results.length === 0 ? false: true"
+  ></app-card> -->
+  <app-table
+  class="body"
+  *ngIf="results.length === 0 ? false: true"
+  (deleteInventoryEvent)="deleteInventory($event)"
+  (updateInventoryEvent)="updateInventory($event)"
+  [items]="results"
+  [pageData]="pageData"
+  [paginator]="paginator"
+  ></app-table>
+  <mat-paginator
+  class="pagination mat-elevation-z8"
+  [ngStyle]="{'z-index': results.length === 0 ? -1: 'auto'}"
+  [length]="totalLength"
   [pageSize]="pageSizeOptions[0]"
   [pageSizeOptions]="pageSizeOptions"
   (page)="$event"></mat-paginator>
-  <div class="not-found" *ngIf="results.length === 0" >No Result Found</div>
-  <app-card class="body" (deleteInventoryEvent)="deleteInventory($event)" [items]="results" *ngIf="results.length === 0 ? false: true" ></app-card>
+
+  <div class="create-butt">
+    <button mat-fab color="primary">
+    <mat-icon>add</mat-icon>
+  </button>
+  </div>
+
+  <!-- <div class="goto">
+    <div class="up-butt">
+      <button mat-fab color="primary">
+      <mat-icon>expand_less</mat-icon>
+    </button>
+    </div>
+    <div class="down-butt">
+      <button mat-fab color="primary">
+      <mat-icon>expand_more</mat-icon>
+    </button>
+    </div>
+  </div> -->
+
 </div>
+
+

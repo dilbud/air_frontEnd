@@ -17,6 +17,8 @@ import { ProfileComponent } from './modules/profile/profile.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { AuthGuardService } from './data/services/auth-guard.service';
 import { CardComponent } from './modules/card/card.component';
+import { TableComponent } from './modules/table/table.component';
+import { AddInventoryComponent } from './modules/add-inventory/add-inventory.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { CardComponent } from './modules/card/card.component';
     ProfileComponent,
     DashboardComponent,
     CardComponent,
+    TableComponent,
+    AddInventoryComponent,
   ],
   imports: [
     BrowserModule,
