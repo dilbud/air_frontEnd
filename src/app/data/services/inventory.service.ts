@@ -1,8 +1,10 @@
+import { InventoryData } from 'src/app/data/models/InventoryData';
 import { Injectable } from '@angular/core';
 import { QuaryData } from '../models/QuaryData';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '@env';
+import { shareReplay, debounceTime } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -79,10 +81,18 @@ export class InventoryService {
     return param;
   }
 
-  public deleteInventory(id: number, quary: QuaryData) {
+  public deleteInventory(id: number) {
 
-    // console.log(this.apiUrl + `/inventories/${id}${param}`);
+    // console.log(this.apiUrl + `/inventories/${id}`);
     return this.http.delete(this.apiUrl + `/inventories/${id}`);
+  }
+
+  public addInventory(item: InventoryData) {
+    return this.http.post(this.apiUrl + `/inventories`, {...item}).pipe(debounceTime(500));
+  }
+
+  public updateInventory(item: InventoryData) {
+    return this.http.put(this.apiUrl + `/inventories/${item.id}`, {...item}).pipe(debounceTime(500));
   }
 
   public getQuaryResult(quary: QuaryData, special = false): Observable<any> {

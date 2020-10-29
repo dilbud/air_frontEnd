@@ -1,1 +1,63 @@
-<p>add-inventory works!</p>
+<div class="expan-contaner">
+  <form class="form" [formGroup]="inventory">
+    <table class="full-width">
+      <tr>
+        <td>
+          <mat-form-field class="full-width">
+            <mat-label>Brand</mat-label>
+            <mat-select formControlName="brand">
+              <mat-option *ngFor="let brand of brands" [value]="brand.value">
+                {{brand.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field class="full-width">
+            <mat-label>Type</mat-label>
+            <mat-select formControlName="type">
+              <mat-option *ngFor="let type of types" [value]="type.value">
+                {{type.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <mat-form-field class="full-width expan-description">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description"></textarea>
+          </mat-form-field>
+        </td>
+      <tr>
+      <tr>
+        <td>
+          <mat-form-field class="full-width expan-price">
+            <mat-label>Price</mat-label>
+            <input matInput formControlName="price" type="number">
+            <span matPrefix>Rs&nbsp;:&nbsp;</span>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Expire</mat-label>
+            <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker" formControlName="expire">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker disabled="false" class="item"></mat-datepicker>
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+  </form>
+  <div class="mr-1">
+    <button class="expan-action-edit" mat-mini-fab color='primary'
+      (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+    <button class="expan-action-done" mat-mini-fab color='primary' [disabled]="inventory.disabled || inventory.invalid"
+      (click)="submit()">
+      <mat-icon>done</mat-icon>
+    </button>
+  </div>
+</div>

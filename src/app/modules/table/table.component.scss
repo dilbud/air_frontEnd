@@ -93,6 +93,10 @@ th {
   background-color: rgb(255, 255, 255);
 }
 
+.full-width {
+  width: 100%;
+}
+
 .expan-contaner {
   width: 100%;
   height: auto;
@@ -107,12 +111,22 @@ th {
   width: 75%;
 }
 
+.expan-price {
+  margin-top: 12px;
+}
+
 .expan-action-edit {
   margin-left: 10px;
-  float: right;
+  margin-bottom: 10px;
+}
+
+.expan-action-done {
+  margin-left: 10px;
+  margin-bottom: 10px;
 }
 
 .expan-action-delete {
   margin-left: 10px;
-  float: right;
+  margin-right: 15px;
+  margin-bottom: 10px;
 }

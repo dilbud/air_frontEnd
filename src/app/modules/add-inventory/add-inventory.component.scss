@@ -1,0 +1,29 @@
+.full-width {
+  width: 100%;
+}
+
+.expan-contaner {
+  width: 650px;
+  height: auto;
+
+}
+
+.expan-price {
+  margin-top: 12px;
+}
+
+.expan-action-edit {
+  margin-left: 10px;
+}
+
+.expan-action-done {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.mr-1 {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: flex-end;
+}

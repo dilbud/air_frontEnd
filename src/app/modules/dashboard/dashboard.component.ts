@@ -1,3 +1,4 @@
+import { AddInventoryComponent } from './../add-inventory/add-inventory.component';
 import { InventoryData } from './../../data/models/InventoryData';
 import { UserData } from './../../data/models/userData';
 import { SuccessMsgData } from './../../data/models/SuccessMsgData';
@@ -11,18 +12,12 @@ import {
   FormControl,
   Validators,
 } from '@angular/forms';
-import { MatPaginator, MatSnackBar } from '@angular/material';
+import { MatDialog, MatPaginator, MatSnackBar } from '@angular/material';
 import { debounceTime, throttleTime } from 'rxjs/operators';
 import { PageData } from 'src/app/data/models/PageData';
+import { Brand } from 'src/app/data/models/Brand';
+import { Type } from 'src/app/data/models/Type';
 
-interface Brand {
-  value: string;
-  viewValue: string;
-}
-interface Type {
-  value: string;
-  viewValue: string;
-}
 
 interface SearchData {
   brandCtrl: string[];
@@ -44,6 +39,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   pageData: PageData;
   previousSearch: SearchData;
   clear = true;
+  toggle = true; // disable login link
+
+  isLoadingResults = true;
 
   results: InventoryData[] = [];
 
@@ -69,6 +67,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     private formBuilder: FormBuilder,
     private matSnackBar: MatSnackBar,
     private inventoryService: InventoryService,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -141,12 +140,14 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   deleteInventory(item: InventoryData) {
+    this.isLoadingResults = true;
     const quary: QuaryData = {
       ...this.pageData,
       ...this.search.value
     };
-    this.inventoryService.deleteInventory(item.id, quary).subscribe((res: any) => {
+    this.inventoryService.deleteInventory(item.id).subscribe((res: any) => {
     }, (err: any) => {
+      this.isLoadingResults = false;
       this.matSnackBar.open('Not Deleted', 'OK', { duration: 1200 });
       this.getResult();
     }, () => {
@@ -156,18 +157,27 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   updateInventory(item: InventoryData) {
-    // const quary: QuaryData = {
-    //   ...this.pageData,
-    //   ...this.search.value
-    // };
-    // this.inventoryService.deleteInventory(item.id, quary).subscribe((res: any) => {
-    // }, (err: any) => {
-    //   this.matSnackBar.open('Not Deleted', 'OK', { duration: 1200 });
-    //   this.getResult();
-    // }, () => {
-    //   this.matSnackBar.open('Item Delete Success', 'OK', { duration: 1200 });
-    //   this.getResult();
-    // });
+    this.isLoadingResults = true;
+    this.inventoryService.updateInventory(item).subscribe((res: SuccessMsgData) => {
+    }, (err: any) => {
+      this.isLoadingResults = false;
+      this.matSnackBar.open('Inventory Not Updated', 'OK', { duration: 1200 });
+    }, () => {
+      this.matSnackBar.open('Inventory Updated', 'OK', { duration: 1200 });
+      this.getResult();
+    });
+  }
+
+  addInventory(item: InventoryData) {
+    this.isLoadingResults = true;
+    this.inventoryService.addInventory(item).subscribe((res: SuccessMsgData) => {
+    }, (err: any) => {
+      this.isLoadingResults = false;
+      this.matSnackBar.open('Inventory Not Added', 'OK', { duration: 1200 });
+    }, () => {
+      this.matSnackBar.open('Inventory Added', 'OK', { duration: 1200 });
+      this.getResult();
+    });
   }
 
   getResult(special = false) {
@@ -175,6 +185,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       ...this.pageData,
       ...this.search.value
     };
+    this.isLoadingResults = true;
     this.inventoryService.getQuaryResult(quary, special).pipe(debounceTime(500)).subscribe((res: SuccessMsgData) => {
       this.totalLength = res.page.length;
       const val = res.data as InventoryData[];
@@ -182,10 +193,12 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       console.log(this.results);
 
     }, (err: any) => {
+      this.isLoadingResults = false;
       this.results = [];
       this.matSnackBar.open('No Found Result', 'OK', { duration: 1200 });
       this.totalLength = 0;
     }, () => {
+      this.isLoadingResults = false;
     });
   }
 
@@ -195,5 +208,24 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   searchText() {
     this.getResult();
+  }
+
+  openAddInventory() {
+    this.toggle = false;
+    const dialogRef = this.dialog.open(AddInventoryComponent, {
+      width: 'auto',
+      height: 'auto',
+      autoFocus: false,
+      data: {  }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== 'close' && result !== null) {
+        this.toggle = true;
+        this.addInventory(result);
+      } else {
+        this.toggle = true;
+      }
+    });
   }
 }

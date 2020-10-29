@@ -8,18 +8,21 @@
   position: relative;
 }
 .mt-2 {
+  margin-top: 4px;
   margin-left: 4px;
   margin-right: 4px;
   flex-grow: 32;
   background-color: white !important;
 }
 .mt-3 {
+  margin-top: 4px;
   margin-left: 4px;
   margin-right: 4px;
   flex-grow: 1;
   background-color: white !important;
 }
 .mt-4 {
+  margin-top: 4px;
   margin-left: 4px;
   margin-right: 4px;
   flex-grow: 1;
@@ -89,4 +92,18 @@
 
 .goto > * {
   margin-top: 10px;
+}
+
+.loading-shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
 }

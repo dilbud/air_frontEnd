@@ -49,7 +49,8 @@ import { AddInventoryComponent } from './modules/add-inventory/add-inventory.com
   ],
   bootstrap: [AppComponent],
   entryComponents: [
-    LoginComponent
+    LoginComponent,
+    AddInventoryComponent
   ]
 })
 export class AppModule { }

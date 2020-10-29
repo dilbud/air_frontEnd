@@ -4,6 +4,8 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { InventoryData } from 'src/app/data/models/InventoryData';
+import { Brand } from 'src/app/data/models/Brand';
+import { Type } from 'src/app/data/models/Type';
 
 export interface RowData {
   no: string;
@@ -55,17 +57,48 @@ export class TableComponent implements OnInit, OnChanges{
   inventory: FormGroup;
   allAppTable: RowData[] = [];
 
+  brands: Brand[] = [
+    { value: 'samsung', viewValue: 'Samsung' },
+    { value: 'lg', viewValue: 'LG' },
+    { value: 'singer', viewValue: 'Singer' },
+    { value: 'philips', viewValue: 'Philips' },
+  ];
+
+  types: Type[] = [
+    { value: 'tv', viewValue: 'TV' },
+    { value: 'refrigerator', viewValue: 'Refrigerator' },
+    { value: 'radio', viewValue: 'Radio' },
+    { value: 'laptop', viewValue: 'Laptop' },
+  ];
+
+  public myFilter = (d: Date | null): boolean => {
+    const day = d || new Date();
+    const today = new Date();
+
+    const slectMili = new Date(
+      day.getUTCFullYear(),
+      day.getUTCMonth(),
+      day.getUTCDate()
+    ).getTime();
+    const todatMili = new Date(
+      today.getUTCFullYear(),
+      today.getUTCMonth(),
+      today.getUTCDate()
+    ).getTime();
+    return slectMili >= todatMili;
+  }
+
   constructor(
     private formBuilder: FormBuilder
   ) { }
 
   ngOnInit() {
         this.inventory = this.formBuilder.group({
-          Ctrl_1: ['', [Validators.required]],
-          Ctrl_2: ['', [Validators.required]],
-          Ctrl_3: ['', [Validators.required]],
-          Ctrl_4: ['', [Validators.required, Validators.email]],
-          Ctrl_5: ['', [Validators.required]],
+          brand: [{ value: '', disabled: false }, [Validators.required]],
+          type: [{ value: '', disabled: false }, [Validators.required]],
+          description: ['', [Validators.required]],
+          price: ['', [Validators.required]],
+          expire: [{ value: new Date(), disabled: false }, [Validators.required]],
         });
         this.createTableRow();
   }
@@ -96,15 +129,36 @@ export class TableComponent implements OnInit, OnChanges{
     this.dataSource.sort = this.sort;
   }
 
-  setForm(row: any) {
-    // this.inventory.setValue({
-    //   Ctrl_1: row.firstName,
-    //   Ctrl_2: row.lastName,
-    //   Ctrl_3: row.nic,
-    //   Ctrl_4: row.email,
-    //   Ctrl_5: row.id,
-    // });
-    // this.inventory.disable();
+  setForm(item: InventoryData) {
+    const d = new Date();
+    const dArray = item.expire.split('-');
+    const yyyy = +dArray[0];
+    const mm = +dArray[1];
+    const dd = +dArray[2];
+    d.setFullYear(yyyy, mm - 1, dd);
+    this.inventory.setValue({
+      brand: item.brand,
+      type: item.type,
+      description: item.description,
+      price: item.price,
+      expire: d,
+    });
+    this.inventory.disable();
+  }
+  resetForm(item: InventoryData) {
+    const d = new Date();
+    const dArray = item.expire.split('-');
+    const yyyy = +dArray[0];
+    const mm = +dArray[1];
+    const dd = +dArray[2];
+    d.setFullYear(yyyy, mm - 1, dd);
+    this.inventory.setValue({
+      brand: item.brand,
+      type: item.type,
+      description: item.description,
+      price: item.price,
+      expire: d,
+    });
   }
 
   deleteInventory(item: InventoryData) {
@@ -112,7 +166,17 @@ export class TableComponent implements OnInit, OnChanges{
   }
 
   updateInventory(item: InventoryData) {
-    this.updateInventoryEvent.emit(item);
+    if (this.inventory.valid) {
+      const date: Date = this.inventory.value.expire;
+      const newItem = {
+        ...item,
+        brand: this.inventory.value.brand,
+        type: this.inventory.value.type,
+        description: this.inventory.value.description,
+        price: this.inventory.value.price,
+        expire: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
+      }
+      this.updateInventoryEvent.emit(newItem);
+    }
   }
-
 }

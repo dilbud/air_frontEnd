@@ -14,7 +14,7 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 })
 export class UserService {
   private apiUrl = environment.baseUrl + 'login';
-  private authStatusListener = new BehaviorSubject<boolean>(true);
+  private authStatusListener = new BehaviorSubject<boolean>(false);
   private isAuthenticated: boolean;
   private user: UserData;
 

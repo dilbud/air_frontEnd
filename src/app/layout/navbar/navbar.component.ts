@@ -23,9 +23,7 @@ export class NavbarComponent implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router,
-    private route: ActivatedRoute,
     private dialog: MatDialog,
-    private matSnackBar: MatSnackBar,
   ) { }
 
   ngOnInit(): void {

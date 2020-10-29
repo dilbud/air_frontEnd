@@ -33,8 +33,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.login = this.formBuilder.group({
-      Ctrl_1: ['nimal@gmail.com', [Validators.required, Validators.email]],
-      Ctrl_2: ['nimal', [Validators.required, Validators.minLength(1)]]
+      Ctrl_1: ['', [Validators.required, Validators.email]],
+      Ctrl_2: ['', [Validators.required, Validators.minLength(1)]]
     });
   }
 
