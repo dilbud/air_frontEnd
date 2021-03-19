@@ -1,14 +1,14 @@
 <div class="body">
-  <mat-card class="section" *ngFor="let item of items" >
+  <mat-card class="section" *ngFor="let item of items">
     <div class="frame">
       <div class="brand">{{item.brand}}</div>
       <div class="type">{{item.type}}</div>
       <div class="discription">{{item.description}}</div>
       <div class="expire">{{item.expire}}</div>
       <div class="price">{{item.price | currency:'LK':'Rs: ' }} </div>
-        <button class="action" mat-mini-fab color='primary' (click)="deleteInventory(item)" >
-          <mat-icon>delete</mat-icon>
-        </button>
+      <button class="action" mat-mini-fab color='primary' (click)="deleteInventory(item)">
+        <mat-icon>delete</mat-icon>
+      </button>
     </div>
   </mat-card>
 </div>

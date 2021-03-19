@@ -1,5 +1,5 @@
 
-.contaner{
+.contaner {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -31,10 +31,10 @@ mat-form-field {
   width: calc(100% - 10px);
 }
 
-.ok:hover{
+.ok:hover {
   background-color: rgb(199, 255, 199);
 }
 
-.not-ok:hover{
+.not-ok:hover {
   background-color: rgb(255, 199, 199);
 }

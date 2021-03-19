@@ -1,10 +1,10 @@
-import { AddInventoryComponent } from './../add-inventory/add-inventory.component';
-import { InventoryData } from './../../data/models/InventoryData';
-import { UserData } from './../../data/models/userData';
-import { SuccessMsgData } from './../../data/models/SuccessMsgData';
-import { QuaryData } from './../../data/models/QuaryData';
-import { InventoryService } from './../../data/services/inventory.service';
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import {AddInventoryComponent} from './../add-inventory/add-inventory.component';
+import {InventoryData} from './../../data/models/InventoryData';
+import {UserData} from './../../data/models/userData';
+import {SuccessMsgData} from './../../data/models/SuccessMsgData';
+import {QuaryData} from './../../data/models/QuaryData';
+import {InventoryService} from './../../data/services/inventory.service';
+import {Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
 import * as _ from 'lodash';
 import {
   FormBuilder,
@@ -12,11 +12,11 @@ import {
   FormControl,
   Validators,
 } from '@angular/forms';
-import { MatDialog, MatPaginator, MatSnackBar } from '@angular/material';
-import { debounceTime, throttleTime } from 'rxjs/operators';
-import { PageData } from 'src/app/data/models/PageData';
-import { Brand } from 'src/app/data/models/Brand';
-import { Type } from 'src/app/data/models/Type';
+import {MatDialog, MatPaginator, MatSnackBar} from '@angular/material';
+import {debounceTime, throttleTime} from 'rxjs/operators';
+import {PageData} from 'src/app/data/models/PageData';
+import {Brand} from 'src/app/data/models/Brand';
+import {Type} from 'src/app/data/models/Type';
 
 
 interface SearchData {
@@ -32,7 +32,7 @@ interface SearchData {
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
 
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
 
   search: FormGroup;
   totalLength = 0;
@@ -46,19 +46,19 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   results: InventoryData[] = [];
 
   brands: Brand[] = [
-    { value: 'any', viewValue: 'Any' },
-    { value: 'samsung', viewValue: 'Samsung' },
-    { value: 'lg', viewValue: 'LG' },
-    { value: 'singer', viewValue: 'Singer' },
-    { value: 'philips', viewValue: 'Philips' },
+    {value: 'any', viewValue: 'Any'},
+    {value: 'samsung', viewValue: 'Samsung'},
+    {value: 'lg', viewValue: 'LG'},
+    {value: 'singer', viewValue: 'Singer'},
+    {value: 'philips', viewValue: 'Philips'},
   ];
 
   types: Type[] = [
-    { value: 'any', viewValue: 'Any' },
-    { value: 'tv', viewValue: 'TV' },
-    { value: 'refrigerator', viewValue: 'Refrigerator' },
-    { value: 'radio', viewValue: 'Radio' },
-    { value: 'laptop', viewValue: 'Laptop' },
+    {value: 'any', viewValue: 'Any'},
+    {value: 'tv', viewValue: 'TV'},
+    {value: 'refrigerator', viewValue: 'Refrigerator'},
+    {value: 'radio', viewValue: 'Radio'},
+    {value: 'laptop', viewValue: 'Laptop'},
   ];
 
   pageSizeOptions = [6, 9, 27, 99];
@@ -68,7 +68,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     private matSnackBar: MatSnackBar,
     private inventoryService: InventoryService,
     private dialog: MatDialog,
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
 
@@ -81,8 +82,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
     this.search = this.formBuilder.group({
       textCtrl: [],
-      brandCtrl: [{ value: ['any'], disabled: false }],
-      typeCtrl: [{ value: ['any'], disabled: false }],
+      brandCtrl: [{value: ['any'], disabled: false}],
+      typeCtrl: [{value: ['any'], disabled: false}],
     });
 
     this.getResult();
@@ -148,10 +149,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.inventoryService.deleteInventory(item.id).subscribe((res: any) => {
     }, (err: any) => {
       this.isLoadingResults = false;
-      this.matSnackBar.open('Not Deleted', 'OK', { duration: 1200 });
+      this.matSnackBar.open('Not Deleted', 'OK', {duration: 1200});
       this.getResult();
     }, () => {
-      this.matSnackBar.open('Item Delete Success', 'OK', { duration: 1200 });
+      this.matSnackBar.open('Item Delete Success', 'OK', {duration: 1200});
       this.getResult();
     });
   }
@@ -161,9 +162,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.inventoryService.updateInventory(item).subscribe((res: SuccessMsgData) => {
     }, (err: any) => {
       this.isLoadingResults = false;
-      this.matSnackBar.open('Inventory Not Updated', 'OK', { duration: 1200 });
+      this.matSnackBar.open('Inventory Not Updated', 'OK', {duration: 1200});
     }, () => {
-      this.matSnackBar.open('Inventory Updated', 'OK', { duration: 1200 });
+      this.matSnackBar.open('Inventory Updated', 'OK', {duration: 1200});
       this.getResult();
     });
   }
@@ -173,9 +174,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.inventoryService.addInventory(item).subscribe((res: SuccessMsgData) => {
     }, (err: any) => {
       this.isLoadingResults = false;
-      this.matSnackBar.open('Inventory Not Added', 'OK', { duration: 1200 });
+      this.matSnackBar.open('Inventory Not Added', 'OK', {duration: 1200});
     }, () => {
-      this.matSnackBar.open('Inventory Added', 'OK', { duration: 1200 });
+      this.matSnackBar.open('Inventory Added', 'OK', {duration: 1200});
       this.getResult();
     });
   }
@@ -195,7 +196,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }, (err: any) => {
       this.isLoadingResults = false;
       this.results = [];
-      this.matSnackBar.open('No Found Result', 'OK', { duration: 1200 });
+      this.matSnackBar.open('No Found Result', 'OK', {duration: 1200});
       this.totalLength = 0;
     }, () => {
       this.isLoadingResults = false;
@@ -203,7 +204,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   resetText() {
-    this.search.setValue({ ...this.search.value, textCtrl: null }, { onlySelf: true, emitEvent: true });
+    this.search.setValue({...this.search.value, textCtrl: null}, {onlySelf: true, emitEvent: true});
   }
 
   searchText() {
@@ -216,7 +217,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       width: 'auto',
       height: 'auto',
       autoFocus: false,
-      data: {  }
+      data: {}
     });
 
     dialogRef.afterClosed().subscribe(result => {

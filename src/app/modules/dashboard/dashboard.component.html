@@ -2,7 +2,7 @@
   <form class="form mat-elevation-z8" [formGroup]="search">
     <mat-form-field class="mt-2" appearance="fill">
       <mat-label>Search</mat-label>
-      <input matInput placeholder="Ex. Mia" formControlName="textCtrl" />
+      <input matInput placeholder="Ex. Mia" formControlName="textCtrl"/>
       <button mat-icon-button class="but-1" matSuffix (click)="searchText();clear=false">
         <mat-icon class="input">search</mat-icon>
       </button>
@@ -37,10 +37,12 @@
   [items]="results" *ngIf="results.length === 0 ? false: true"
   ></app-card> -->
   <app-table class="body" *ngIf="results.length === 0 ? false: true" (deleteInventoryEvent)="deleteInventory($event)"
-    (updateInventoryEvent)="updateInventory($event)" [items]="results" [pageData]="pageData" [paginator]="paginator">
+             (updateInventoryEvent)="updateInventory($event)" [items]="results" [pageData]="pageData"
+             [paginator]="paginator">
   </app-table>
   <mat-paginator class="pagination mat-elevation-z8" [ngStyle]="{'z-index': results.length === 0 ? -1: 'auto'}"
-    [length]="totalLength" [pageSize]="pageSizeOptions[0]" [pageSizeOptions]="pageSizeOptions" (page)="$event">
+                 [length]="totalLength" [pageSize]="pageSizeOptions[0]" [pageSizeOptions]="pageSizeOptions"
+                 (page)="$event">
   </mat-paginator>
 
   <div class="create-butt">

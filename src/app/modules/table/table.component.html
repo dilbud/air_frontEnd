@@ -88,7 +88,7 @@
                           <mat-form-field class="full-width" appearance="fill">
                             <mat-label>Expire</mat-label>
                             <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker"
-                              formControlName="expire">
+                                   formControlName="expire">
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker disabled="false" class="item"></mat-datepicker>
                           </mat-form-field>
@@ -98,15 +98,15 @@
                   </form>
                   <mat-card-actions class="mr-1" align="end">
                     <button class="expan-action-edit" mat-mini-fab color='primary'
-                      (click)="inventory.enabled?inventory.disable():inventory.enable();resetForm(element.row)">
-                      <mat-icon>{{inventory.enabled? "close": "edit"}}</mat-icon>
+                            (click)="inventory.enabled?inventory.disable():inventory.enable();resetForm(element.row)">
+                      <mat-icon>{{inventory.enabled ? "close" : "edit"}}</mat-icon>
                     </button>
                     <button class="expan-action-done" mat-mini-fab color='primary'
-                      [disabled]="inventory.disabled || inventory.invalid" (click)="updateInventory(element.row)">
+                            [disabled]="inventory.disabled || inventory.invalid" (click)="updateInventory(element.row)">
                       <mat-icon>done</mat-icon>
                     </button>
                     <button class="expan-action-delete" mat-mini-fab color='primary'
-                      (click)="deleteInventory(element.row)">
+                            (click)="deleteInventory(element.row)">
                       <mat-icon>delete</mat-icon>
                     </button>
                   </mat-card-actions>
@@ -117,8 +117,8 @@
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
         <tr mat-row *matRowDef="let element; columns: columnsToDisplay" class="element-row"
-          [class.expanded-row]="expandedElement === element"
-          (click)="expandedElement = expandedElement === element ? null : element;setForm(element.row)"></tr>
+            [class.expanded-row]="expandedElement === element"
+            (click)="expandedElement = expandedElement === element ? null : element;setForm(element.row)"></tr>
         <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
       </table>
     </div>

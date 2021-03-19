@@ -1,9 +1,9 @@
-import { UserData } from './../../data/models/userData';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { UserService } from 'src/app/data/services/user.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MatDialog, MatSnackBar } from '@angular/material';
-import { LoginComponent } from 'src/app/modules/login/login.component';
+import {UserData} from './../../data/models/userData';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {UserService} from 'src/app/data/services/user.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {MatDialog, MatSnackBar} from '@angular/material';
+import {LoginComponent} from 'src/app/modules/login/login.component';
 
 @Component({
   selector: 'app-navbar',
@@ -20,11 +20,13 @@ export class NavbarComponent implements OnInit {
   toggle = true; // disable login link
 
   public isAuth = false;
+
   constructor(
     private userService: UserService,
     private router: Router,
     private dialog: MatDialog,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.isAuth = this.userService.getIsAuth();
@@ -39,7 +41,7 @@ export class NavbarComponent implements OnInit {
       width: 'auto',
       height: 'auto',
       autoFocus: false,
-      data: { email: this.email, password: this.password }
+      data: {email: this.email, password: this.password}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -55,19 +57,22 @@ export class NavbarComponent implements OnInit {
 
   // navigate to home
   public navHome() {
-    this.router.navigate(['home'], { skipLocationChange: true });
+    this.router.navigate(['home'], {skipLocationChange: true});
   }
+
   // logout user
   public logout() {
     this.userService.logout();
   }
+
   // go to dashboard
-    public dashboard() {
-      this.router.navigate(['dashboard'], { skipLocationChange: true });
-    }
+  public dashboard() {
+    this.router.navigate(['dashboard'], {skipLocationChange: true});
+  }
+
   // go to profile
   public profile() {
-    this.router.navigate(['profile'], { skipLocationChange: true });
+    this.router.navigate(['profile'], {skipLocationChange: true});
   }
 
 }

@@ -1,10 +1,10 @@
-import { InventoryData } from 'src/app/data/models/InventoryData';
-import { Injectable } from '@angular/core';
-import { QuaryData } from '../models/QuaryData';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { environment } from '@env';
-import { shareReplay, debounceTime } from 'rxjs/operators';
+import {InventoryData} from 'src/app/data/models/InventoryData';
+import {Injectable} from '@angular/core';
+import {QuaryData} from '../models/QuaryData';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {environment} from '@env';
+import {shareReplay, debounceTime} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,8 @@ import { shareReplay, debounceTime } from 'rxjs/operators';
 export class InventoryService {
   private apiUrl = environment.baseUrl + 'dashboard';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   private quary(quary: QuaryData, special = false): string {
 
@@ -51,7 +52,9 @@ export class InventoryService {
             return v !== ' ';
           })
           .reduce((pr, cv, i, arr) => {
-            if (cv === '') { return pr; }
+            if (cv === '') {
+              return pr;
+            }
             if (arr.length === 1) {
               return pr + cv;
             } else {

@@ -1,9 +1,9 @@
-import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Brand } from 'src/app/data/models/Brand';
-import { InventoryData } from 'src/app/data/models/InventoryData';
-import { Type } from 'src/app/data/models/Type';
+import {Component, OnInit, OnDestroy, Inject} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {Brand} from 'src/app/data/models/Brand';
+import {InventoryData} from 'src/app/data/models/InventoryData';
+import {Type} from 'src/app/data/models/Type';
 
 interface DialogData {
   email: string;
@@ -21,17 +21,17 @@ export class AddInventoryComponent implements OnInit, OnDestroy {
   lock = true; // disable on destroy
 
   brands: Brand[] = [
-    { value: 'samsung', viewValue: 'Samsung' },
-    { value: 'lg', viewValue: 'LG' },
-    { value: 'singer', viewValue: 'Singer' },
-    { value: 'philips', viewValue: 'Philips' },
+    {value: 'samsung', viewValue: 'Samsung'},
+    {value: 'lg', viewValue: 'LG'},
+    {value: 'singer', viewValue: 'Singer'},
+    {value: 'philips', viewValue: 'Philips'},
   ];
 
   types: Type[] = [
-    { value: 'tv', viewValue: 'TV' },
-    { value: 'refrigerator', viewValue: 'Refrigerator' },
-    { value: 'radio', viewValue: 'Radio' },
-    { value: 'laptop', viewValue: 'Laptop' },
+    {value: 'tv', viewValue: 'TV'},
+    {value: 'refrigerator', viewValue: 'Refrigerator'},
+    {value: 'radio', viewValue: 'Radio'},
+    {value: 'laptop', viewValue: 'Laptop'},
   ];
 
   public myFilter = (d: Date | null): boolean => {
@@ -55,23 +55,24 @@ export class AddInventoryComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<AddInventoryComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.inventory = this.formBuilder.group({
-      brand: [{ value: '', disabled: false }, [Validators.required]],
-      type: [{ value: '', disabled: false }, [Validators.required]],
+      brand: [{value: '', disabled: false}, [Validators.required]],
+      type: [{value: '', disabled: false}, [Validators.required]],
       description: ['', [Validators.required]],
       price: [{value: '', disabled: false}, [Validators.required]],
-      expire: [{ value: new Date(), disabled: false }, [Validators.required]],
+      expire: [{value: new Date(), disabled: false}, [Validators.required]],
     });
   }
 
   ngOnDestroy(): void {
-        // disable on destroy
-        if (this.lock) {
-          this.dialogRef.close('close');
-        }
+    // disable on destroy
+    if (this.lock) {
+      this.dialogRef.close('close');
+    }
   }
 
   submit() {
@@ -91,6 +92,7 @@ export class AddInventoryComponent implements OnInit, OnDestroy {
       this.lock = false;
     }
   }
+
   close() {
     this.lock = false;
     this.dialogRef.close('close');

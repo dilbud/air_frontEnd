@@ -1,7 +1,7 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserService } from '../../data/services/user.service';
-import { SignupData } from 'src/app/data/models/signupData';
+import {Component, OnInit, OnChanges} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UserService} from '../../data/services/user.service';
+import {SignupData} from 'src/app/data/models/signupData';
 
 export interface Temp {
   value: string;
@@ -28,27 +28,29 @@ export class SignupComponent implements OnInit {
   public userCat: string;
 
   fields: Temp[] = [
-    { value: 'cop', viewValue: 'police station' },
-    { value: 'post', viewValue: 'post office' },
+    {value: 'cop', viewValue: 'police station'},
+    {value: 'post', viewValue: 'post office'},
     // { value: license, viewValue: 'license office' },
   ];
 
   policeStationList: Temp[] = [
-    { value: 'Pettah', viewValue: 'Pettah' },
-    { value: 'Maradana', viewValue: 'Maradana' },
-    { value: 'Fort', viewValue: 'Fort' },
+    {value: 'Pettah', viewValue: 'Pettah'},
+    {value: 'Maradana', viewValue: 'Maradana'},
+    {value: 'Fort', viewValue: 'Fort'},
   ];
 
   postOfficeList: Temp[] = [
-    { value: '10120', viewValue: 'Battaramulla' },
-    { value: '10230', viewValue: 'Pannipitiya' },
-    { value: '10250', viewValue: 'Nugegoda' },
+    {value: '10120', viewValue: 'Battaramulla'},
+    {value: '10230', viewValue: 'Pannipitiya'},
+    {value: '10250', viewValue: 'Nugegoda'},
   ];
 
   constructor(
     private formBuilder: FormBuilder,
     public userService: UserService
-  ) { }
+  ) {
+  }
+
   /**
    * init ,get user details and set form validation and
    */
@@ -60,7 +62,7 @@ export class SignupComponent implements OnInit {
 
     this.formEmail = this.formBuilder.group({
       Ctrl_1: [
-        { value: '', disabled: false },
+        {value: '', disabled: false},
         [Validators.required, Validators.email],
       ],
     });
@@ -102,6 +104,7 @@ export class SignupComponent implements OnInit {
     });
     this.onChange();
   }
+
   /**
    * form validation pro and gen
    */
@@ -111,6 +114,7 @@ export class SignupComponent implements OnInit {
       console.log('this is value', val);
     });
   }
+
   /**
    * validation and send data
    */

@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { InventoryService } from './inventory.service';
+import {InventoryService} from './inventory.service';
 
 describe('InventoryService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

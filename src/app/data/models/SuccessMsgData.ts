@@ -1,6 +1,7 @@
-import { PageData } from './PageData';
-import { UserData } from './userData';
-import { InventoryData } from './InventoryData';
+import {PageData} from './PageData';
+import {UserData} from './userData';
+import {InventoryData} from './InventoryData';
+
 export interface SuccessMsgData {
   status: string;
   message: string;

@@ -1,11 +1,11 @@
-import { PageData } from 'src/app/data/models/PageData';
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
-import { InventoryData } from 'src/app/data/models/InventoryData';
-import { Brand } from 'src/app/data/models/Brand';
-import { Type } from 'src/app/data/models/Type';
+import {PageData} from 'src/app/data/models/PageData';
+import {animate, state, style, transition, trigger} from '@angular/animations';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {InventoryData} from 'src/app/data/models/InventoryData';
+import {Brand} from 'src/app/data/models/Brand';
+import {Type} from 'src/app/data/models/Type';
 
 export interface RowData {
   no: string;
@@ -23,8 +23,8 @@ export interface RowData {
   styleUrls: ['./table.component.scss'],
   animations: [
     trigger('detailExpand', [
-      state('collapsed', style({ height: '0px', minHeight: '0' })),
-      state('expanded', style({ height: '*' })),
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
       transition(
         'expanded <=> collapsed',
         animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
@@ -32,7 +32,7 @@ export interface RowData {
     ]),
   ],
 })
-export class TableComponent implements OnInit, OnChanges{
+export class TableComponent implements OnInit, OnChanges {
 
   @Input() items: InventoryData [] = [];
   @Input() paginator: MatPaginator;
@@ -41,7 +41,7 @@ export class TableComponent implements OnInit, OnChanges{
   @Output() deleteInventoryEvent = new EventEmitter<InventoryData>();
   @Output() updateInventoryEvent = new EventEmitter<InventoryData>();
 
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   dataSource: MatTableDataSource<RowData>;
   columnsToDisplay = [
@@ -58,17 +58,17 @@ export class TableComponent implements OnInit, OnChanges{
   allAppTable: RowData[] = [];
 
   brands: Brand[] = [
-    { value: 'samsung', viewValue: 'Samsung' },
-    { value: 'lg', viewValue: 'LG' },
-    { value: 'singer', viewValue: 'Singer' },
-    { value: 'philips', viewValue: 'Philips' },
+    {value: 'samsung', viewValue: 'Samsung'},
+    {value: 'lg', viewValue: 'LG'},
+    {value: 'singer', viewValue: 'Singer'},
+    {value: 'philips', viewValue: 'Philips'},
   ];
 
   types: Type[] = [
-    { value: 'tv', viewValue: 'TV' },
-    { value: 'refrigerator', viewValue: 'Refrigerator' },
-    { value: 'radio', viewValue: 'Radio' },
-    { value: 'laptop', viewValue: 'Laptop' },
+    {value: 'tv', viewValue: 'TV'},
+    {value: 'refrigerator', viewValue: 'Refrigerator'},
+    {value: 'radio', viewValue: 'Radio'},
+    {value: 'laptop', viewValue: 'Laptop'},
   ];
 
   public myFilter = (d: Date | null): boolean => {
@@ -90,17 +90,18 @@ export class TableComponent implements OnInit, OnChanges{
 
   constructor(
     private formBuilder: FormBuilder
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
-        this.inventory = this.formBuilder.group({
-          brand: [{ value: '', disabled: false }, [Validators.required]],
-          type: [{ value: '', disabled: false }, [Validators.required]],
-          description: ['', [Validators.required]],
-          price: ['', [Validators.required]],
-          expire: [{ value: new Date(), disabled: false }, [Validators.required]],
-        });
-        this.createTableRow();
+    this.inventory = this.formBuilder.group({
+      brand: [{value: '', disabled: false}, [Validators.required]],
+      type: [{value: '', disabled: false}, [Validators.required]],
+      description: ['', [Validators.required]],
+      price: ['', [Validators.required]],
+      expire: [{value: new Date(), disabled: false}, [Validators.required]],
+    });
+    this.createTableRow();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -145,6 +146,7 @@ export class TableComponent implements OnInit, OnChanges{
     });
     this.inventory.disable();
   }
+
   resetForm(item: InventoryData) {
     const d = new Date();
     const dArray = item.expire.split('-');

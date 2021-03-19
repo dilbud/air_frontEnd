@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {A11yModule} from '@angular/cdk/a11y';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {PortalModule} from '@angular/cdk/portal';
@@ -137,4 +137,5 @@ import {MatTreeModule} from '@angular/material/tree';
     MatNativeDateModule
   ]
 })
-export class MatModule { }
+export class MatModule {
+}

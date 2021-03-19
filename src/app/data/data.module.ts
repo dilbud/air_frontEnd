@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatModule } from './material/mat.module';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {MatModule} from './material/mat.module';
 
 @NgModule({
   declarations: [],
@@ -13,4 +13,5 @@ import { MatModule } from './material/mat.module';
     MatModule,
   ]
 })
-export class DataModule { }
+export class DataModule {
+}

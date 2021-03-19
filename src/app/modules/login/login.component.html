@@ -1,18 +1,18 @@
-
-  <div class="contaner">
-    <form class="form" [formGroup]="login">
-      <mat-form-field>
-        <input spellcheck="false" matInput cdkFocusInitial type="email" formControlName="Ctrl_1" placeholder="Email">
-      </mat-form-field>
-      <mat-form-field>
-        <input spellcheck="false" #pass matInput minlength="4" type="password" formControlName="Ctrl_2" placeholder="Password">
-        <mat-hint align="start"><strong>minimal character size is 4</strong> </mat-hint>
-        <mat-hint align="end">{{pass.value.length}}</mat-hint>
-      </mat-form-field>
-    </form>
-    <div class="butt-contaner">
-      <button class="butt" [ngClass]="login.valid? 'ok':'not-ok' "  mat-raised-button (click)="send()">Log in</button>
-    </div>
+<div class="contaner">
+  <form class="form" [formGroup]="login">
+    <mat-form-field>
+      <input spellcheck="false" matInput cdkFocusInitial type="email" formControlName="Ctrl_1" placeholder="Email">
+    </mat-form-field>
+    <mat-form-field>
+      <input spellcheck="false" #pass matInput minlength="4" type="password" formControlName="Ctrl_2"
+             placeholder="Password">
+      <mat-hint align="start"><strong>minimal character size is 4</strong></mat-hint>
+      <mat-hint align="end">{{pass.value.length}}</mat-hint>
+    </mat-form-field>
+  </form>
+  <div class="butt-contaner">
+    <button class="butt" [ngClass]="login.valid? 'ok':'not-ok' " mat-raised-button (click)="send()">Log in</button>
   </div>
+</div>
 
 

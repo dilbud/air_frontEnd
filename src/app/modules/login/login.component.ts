@@ -1,14 +1,14 @@
-import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import {Component, OnInit, OnDestroy, Inject} from '@angular/core';
+import {ActivatedRoute, Params, Router} from '@angular/router';
+import {map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 import {
   FormBuilder,
   FormGroup,
   FormControl,
   Validators,
 } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
+import {MatDialogRef, MAT_DIALOG_DATA, MatSnackBar} from '@angular/material';
 
 interface DialogData {
   email: string;
@@ -29,7 +29,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     public dialogRef: MatDialogRef<LoginComponent>,
     private matSnackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.login = this.formBuilder.group({
